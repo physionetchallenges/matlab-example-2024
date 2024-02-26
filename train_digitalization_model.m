@@ -1,4 +1,4 @@
-function model = train_digitalization_model(input_directory,output_directory, verbose) % train_EEG_classifier
+function model = train_digitalization_model(input_directory,output_directory,verbose)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Purpose: Train and obtain digitalization model
 % Inputs:
@@ -11,7 +11,7 @@ function model = train_digitalization_model(input_directory,output_directory, ve
 
 if verbose>=1
     disp('Training digitalization model...')
-    disp('Finding challenge data...')
+    disp('Finding Challenge data...')
 end
 
 % Find the recordings
@@ -29,7 +29,7 @@ end
 
 fprintf('Loading data for %d records...\n', num_records)
 
-% Extract fatures
+% Extract features
 
 features=[];
 
@@ -43,7 +43,7 @@ for j=1:num_records
     image_file=get_image_file(header);
 
     % Extract features
-    current_features=get_features(fullfile(records(j).folder,image_file),header);
+    current_features=get_features(records(j).folder,image_file,header);
     features(j,:)=current_features;
     
 end

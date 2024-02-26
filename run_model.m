@@ -1,11 +1,10 @@
-
 function run_model(input_directory, model_directory, output_directory, allow_failures, verbose)
 
 % Do *not* edit this script. Changes will be discarded so that we can process the models consistently.
 
 % This file contains functions for running models for the 2024 Challenge. You can run it as follows:
 %
-%   run_model(model, data, outputs)
+%   run_model(data, model, outputs)
 %
 % where 'model' is a folder containing the your trained model, 'data' is a folder containing the Challenge data, and 'outputs' is a
 % folder for saving your model's outputs.
@@ -32,7 +31,7 @@ if verbose>=1
 end
 
 % Create the output directory if it doesn't exist
-if ~exist(output_directory, 'dir')
+if ~isfolder(output_directory)
     mkdir(output_directory)
 end
 
@@ -52,7 +51,7 @@ for j=1:num_records
         signal=run_digitalization_model(digitalization_model,records(j).folder,records(j).name,verbose);
     catch
         if allow_failures==1
-            disp('Digitalizarion failed')
+            disp('Digitalization failed')
             signal=NaN;
         else
             error();
@@ -71,14 +70,31 @@ for j=1:num_records
         end
     end
     
-    % Create a folder for the Challenge outputs if it does not already
-    % exist
-    output_directory_tmp=fullfile(output_directory,records(j).folder(end-5:end));
-    if ~exist(output_directory_tmp, 'dir')
-        mkdir(output_directory_tmp)
+    
+    input_directory_tmp=dir(input_directory);
+    input_directory_path=input_directory_tmp(1).folder;
+
+    if strcmp(input_directory_path,records(j).folder)
+
+        output_record=fullfile(output_directory,records(j).name);
+
+    else
+
+        output_record=fullfile(output_directory,records(j).folder(length(input_directory_path)+1:end),records(j).name);
+
     end
 
-    output_record=fullfile(output_directory_tmp,records(j).name);
+    % Create a folder for the Challenge outputs if it does not already
+    % exist
+
+    if ~isfolder(output_directory)
+        mkdir(output_directory)
+    end
+
+    [output_directory_tmp,~,~]=fileparts(output_record);
+    if ~isfolder(output_directory_tmp)
+        mkdir(output_directory_tmp)
+    end
 
     header=fileread(fullfile(records(j).folder,records(j).name));
     writematrix(header,output_record,'FileType','text','QuoteStrings',0);

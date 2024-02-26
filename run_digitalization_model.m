@@ -6,7 +6,7 @@ model=digitalization_model.model;
 header=fileread(data_record);
 
 image_file=get_image_file(header);
-features=get_features(fullfile(folder,image_file),header);
+features=get_features(folder,image_file,header);
 
 num_samples = get_num_samples(header);
 num_signals = get_num_signals(header);

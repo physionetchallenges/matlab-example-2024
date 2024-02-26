@@ -7,7 +7,7 @@ classes=dx_model.classes;
 header=fileread(data_record);
 
 image_file=get_image_file(header);
-features=get_features(fullfile(folder,image_file),header);
+features=get_features(folder,image_file,header);
 
 probabilities=mnrval(model,features);
 

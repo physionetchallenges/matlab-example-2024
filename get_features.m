@@ -1,9 +1,18 @@
-function features=get_features(image_file,header)
+function features=get_features(folder,image_file,header)
 
-img=imread(image_file);
+features=zeros(1,2);
 
-features(1)=mean2(img);
-features(2)=std2(img);
+images=strtrim(strsplit(image_file,','));
+
+for i=1:length(images)
+
+    img=imread(fullfile(folder,images{i}));
+    features(1)=mean2(img);
+    features(2)=std2(img);
+
+end
+
+features=features/length(images);
 
 function age=get_age(header)
 

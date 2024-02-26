@@ -8,7 +8,7 @@ function train_model(input_directory, output_directory, verbose)
 %
 % where 'data' is a folder containing the Challenge data and 'model' is a folder for saving your model.
 
-if ~exist(output_directory, 'dir')
+if ~isfolder(output_directory)
     mkdir(output_directory)
 end
 

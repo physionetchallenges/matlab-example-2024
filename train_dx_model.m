@@ -1,4 +1,4 @@
-function model = train_dx_model(input_directory,output_directory, verbose) % train_EEG_classifier
+function model = train_dx_model(input_directory,output_directory,verbose)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Purpose: Train classifiers and obtain the models
 % Inputs:
@@ -11,7 +11,7 @@ function model = train_dx_model(input_directory,output_directory, verbose) % tra
 
 if verbose>=1
     disp('Training dx classification model...')
-    disp('Finding challenge data...')
+    disp('Finding Challenge data...')
 end
 
 % Find the recordings
@@ -29,7 +29,7 @@ end
 
 fprintf('Extracting features and labels for %d records...\n', num_records)
 
-% Extract fatures
+% Extract features
 
 features=[];
 dx=cell(1);
@@ -45,7 +45,7 @@ for j=1:num_records
     image_file=get_image_file(header);
 
     % Extract features
-    current_features=get_features(fullfile(records(j).folder,image_file),header);
+    current_features=get_features(records(j).folder,image_file,header);
 
     features(j,:)=current_features;
 
