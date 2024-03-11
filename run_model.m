@@ -64,7 +64,7 @@ for j=1:num_records
     catch
         if allow_failures==1
             disp('Classification failed')
-            signal=NaN;
+            dx=NaN;
         else
             error();
         end
@@ -99,14 +99,14 @@ for j=1:num_records
     header=fileread(fullfile(records(j).folder,records(j).name));
     writematrix(header,output_record,'FileType','text','QuoteStrings',0);
 
-    if ~isempty(signal)
+    if ~isnan(signal)
 
         num_signals=get_num_signals(header);
         save_signal(output_record,signal,num_signals)
 
     end
 
-    if ~isempty(dx)
+    if ~isnan(dx)
         save_dx(output_record,dx)
     end
 
