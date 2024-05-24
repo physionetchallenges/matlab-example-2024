@@ -16,7 +16,6 @@ if nargin~=3
     verbose=1;
 end
 
-train_digitalization_model(input_directory,output_directory, verbose); % Teams: Implement this function!!!
-train_dx_model(input_directory,output_directory, verbose);  % Teams: Implement this function!!!
+train_models(input_directory,output_directory, verbose); % Teams: Implement this function!!!
 
 end

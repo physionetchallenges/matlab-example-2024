@@ -15,8 +15,7 @@ if nargin==3
 end
 
 % Load the models
-digitalization_model=load_digitalization_model(model_directory); % Teams: Implement this function!!
-dx_model=load_dx_model(model_directory); % Teams: Implement this function!!
+[digitalization_model, classification_model] = load_models(model_directory, verbose); % Teams: Implement this function!!
 
 % Find challenge data
 if verbose>=1
@@ -46,31 +45,19 @@ for j=1:num_records
         fprintf('%d/%d \n',j,num_records);
     end
 
-    % Run the digitalization model
     try
-        signal=run_digitalization_model(digitalization_model,records(j).folder,records(j).name,verbose);
+        data_record=fullfile(records(j).folder,records(j).name);
+        [signal,labels]=run_models(data_record, digitalization_model, classification_model, verbose);
     catch
         if allow_failures==1
-            disp('Digitalization failed')
+            disp('Failed')
             signal=NaN;
+            labels=NaN;
         else
             error();
         end
     end
-
-    % Run the dx model
-    try
-        dx=run_dx_model(dx_model,records(j).folder, records(j).name, signal, verbose);
-    catch
-        if allow_failures==1
-            disp('Classification failed')
-            dx=NaN;
-        else
-            error();
-        end
-    end
-    
-    
+   
     input_directory_tmp=dir(input_directory);
     input_directory_path=input_directory_tmp(1).folder;
 
@@ -106,8 +93,8 @@ for j=1:num_records
 
     end
 
-    if ~isnan(dx)
-        save_dx(output_record,dx)
+    if ~isnan(labels)
+        save_dx(output_record,labels)
     end
 
 end
@@ -261,7 +248,7 @@ function save_dx(output_record,dx)
 
 header=fileread(output_record);
 header=strsplit(header,'\n');
-header{end+1}=sprintf('#Dx: %s',dx);
+header{end+1}=sprintf('# Labels: %s',dx);
 header(cellfun(@isempty,header))=[];
 header=strjoin(header,'\n');
 writematrix(header,output_record,'FileType','text','QuoteStrings',0);

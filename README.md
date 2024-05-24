@@ -51,12 +51,9 @@ You can use the scripts in [this repository](https://github.com/physionetchallen
 
 Please edit the following script to add your code:
 
-* `train_dx_model.m` is a script for training your dx classification model.
-* `train_digitization_model.m` is a script for training your digitization model.
-* `load_dx_model.m` is a script for loading your trained dx classification model.
-* `load_digitization_model.m` is a script for loading your trained digitization model.
-* `run_dx_model.m` is a script for running your trained dx classification model.
-* `run_digitization_model.m` is a script for running your trained digitization model.
+* `train_models.m` is a script for training your models.
+* `load_models.m` is a script for loading your trained models.
+* `run_models.m` is a script for running your trained models.
 
 Please do **not** edit the following scripts. We will use the unedited versions of these scripts when running your code:
 
@@ -67,11 +64,11 @@ These scripts must remain in the root path of your repository, but you can put o
 
 ## How do I train, save, load, and run my model?
 
-You can choose to create waveform reconstruction and/or classification models.
+You can choose to create digitization and/or classification models.
 
-To train and save your model(s), please edit the `train_digitization_model.m` and `train_diagnosis_model.m` scripts. Please do not edit the input or output arguments of these function.
+To train and save your model(s), please edit the `train_models.m` script. Please do not edit the input or output arguments of this function.
 
-To load and run your trained model(s), please edit the `load_digitization_model.m`, `load_diagnosis_model.m`, `run_digitization_model.m`, and `run_diagnosis_model.m` scripts. Please do not edit the input or output arguments of the functions of these functions.
+To load and run your trained model(s), please edit the `load_models.m` and `run_model.m` scripts. Please do not edit the input or output arguments of these functions.
 
 ## What else do I need?
 

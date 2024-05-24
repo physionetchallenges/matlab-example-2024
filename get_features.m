@@ -17,6 +17,6 @@ features=features/length(images);
 function age=get_age(header)
 
 header=strsplit(header,'\n');
-age_tmp=header(startsWith(header,'#Age:'));
+age_tmp=header(startsWith(header,'# Age:'));
 age_tmp=strsplit(age_tmp{1},':');
 age=str2double(age_tmp{2});
